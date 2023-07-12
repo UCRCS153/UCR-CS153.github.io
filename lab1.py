@@ -68,7 +68,8 @@ def populate_makefile(filename):
     c = re.sub(r'UPROGS=([\w\W]*)fs\.img: mkfs', f'UPROGS={uprogs} \nfs.img: mkfs', c)
     open("Makefile", 'w').write(c)
 
-code = base64.b64decode(code)
+code1 = base64.b64decode(code1)
+code23 = base64.b64decode(code1)
 
 rubrics = yaml.safe_load(rubrics)
 full = 0
