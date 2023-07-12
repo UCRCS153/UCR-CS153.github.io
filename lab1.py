@@ -72,7 +72,7 @@ def populate_makefile(filename):
     open("Makefile", 'w').write(c)
 
 
-def run_test(code, program, rubric):
+def run_test(code, program, rubrics):
     code = base64.b64decode(code)
     populate_makefile(program)
     with open(program+".c", 'wb') as f:   
