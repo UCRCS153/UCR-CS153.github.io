@@ -91,7 +91,7 @@ def run_test(code, program, rubrics, points):
         exit(1)
 
     rubrics = yaml.safe_load(rubrics)
-    full = point1
+    full = points
 
     for rubric in rubrics:
         print(f"[!]Checking [{rubric['name']}]")
