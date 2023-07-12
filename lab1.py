@@ -1,4 +1,4 @@
-rubrics = r"""
+rubrics1 = r"""
 - points: 0
   cmd: "lab1_part1"
   expect: "1"
@@ -9,7 +9,10 @@ rubrics = r"""
   expect: "0"
   note: "[Getppid] Get ppid succeeded"
   name: "Getppid - successful"
+"""
 
+
+rubrics23 = r"""
 - points: 5
   cmd: "lab1_part23 1"
   expect: "4 0"
@@ -68,55 +71,54 @@ def populate_makefile(filename):
     c = re.sub(r'UPROGS=([\w\W]*)fs\.img: mkfs', f'UPROGS={uprogs} \nfs.img: mkfs', c)
     open("Makefile", 'w').write(c)
 
-code1 = base64.b64decode(code1)
-code23 = base64.b64decode(code23)
 
-rubrics = yaml.safe_load(rubrics)
-full = 0
+def run_test(code, program, rubric):
+    code = base64.b64decode(code)
+    populate_makefile(program)
+    with open(program+".c", 'wb') as f:   
+        f.write(code)
 
-populate_makefile("lab1_part1")
-populate_makefile("lab1_part23")
+    p = process("make qemu-nox".split())
 
-with open("lab1_part1.c", 'wb') as f:   
-    f.write(code1)
-with open("lab1_part23.c", 'wb') as f:   
-    f.write(code23)
+    points = 0
+    errors = []
 
-p = process("make qemu-nox".split())
-
-points = 0
-errors = []
-
-try:
-    p.recvuntil(b"init: starting sh\n$", timeout=10)
-except:
-    print("[!]Failed to compile and start xv6 with testsuite")
-    print("[!]Compile log:", p.recvall().decode('latin-1'))
-    print(f"Your score: {points}")
-    exit(1)
-
-
-for rubric in rubrics:
-    print(f"[!]Checking [{rubric['name']}]")
-    full += rubric["points"]
     try:
-        if "cmd" in rubric:
-            p.sendline(rubric["cmd"].encode())
-        recv = p.recvuntil(rubric["expect"].encode(), timeout=2).decode('latin-1')
-        if rubric["expect"] not in recv:
-            raise Exception("Wrong output")
-        points += rubric["points"]
+        p.recvuntil(b"init: starting sh\n$", timeout=10)
     except:
-        errors.append(rubric["note"])
+        print("[!]Failed to compile and start xv6 with testsuite")
+        print("[!]Compile log:", p.recvall().decode('latin-1'))
+        print(f"Your score: {points}")
+        exit(1)
 
-if errors:
-    print("[!]Errors:")
-    for error in errors:
-        print("    " + error)
-else:
-    print("[!]All check passed!")
-print("=======")
-print(f"Your score: {points} / {full}")
+    rubrics = yaml.safe_load(rubrics)
+    full = 0
 
-if errors:
-    exit(1)
+    for rubric in rubrics:
+        print(f"[!]Checking [{rubric['name']}]")
+        full += rubric["points"]
+        try:
+            if "cmd" in rubric:
+                p.sendline(rubric["cmd"].encode())
+            recv = p.recvuntil(rubric["expect"].encode(), timeout=2).decode('latin-1')
+            if rubric["expect"] not in recv:
+                raise Exception("Wrong output")
+            points += rubric["points"]
+        except:
+            errors.append(rubric["note"])
+
+    if errors:
+        print("[!]Errors:")
+        for error in errors:
+            print("    " + error)
+    else:
+        print("[!]All check passed!")
+    print("=======")
+    print(f"Your score: {points} / {full}")
+
+    if errors:
+        exit(1)
+
+
+run_test(code1, "lab1_part1", rubrics1)
+run_test(code23, "lab1_part23", rubrics23)
