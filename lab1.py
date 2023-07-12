@@ -69,7 +69,7 @@ def populate_makefile(filename):
     open("Makefile", 'w').write(c)
 
 code1 = base64.b64decode(code1)
-code23 = base64.b64decode(code1)
+code23 = base64.b64decode(code23)
 
 rubrics = yaml.safe_load(rubrics)
 full = 0
