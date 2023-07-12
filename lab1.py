@@ -72,7 +72,7 @@ def populate_makefile(filename):
     open("Makefile", 'w').write(c)
 
 
-def run_test(code, program, rubrics):
+def run_test(code, program, rubrics, points):
     code = base64.b64decode(code)
     populate_makefile(program)
     with open(program+".c", 'wb') as f:   
@@ -80,7 +80,6 @@ def run_test(code, program, rubrics):
 
     p = process("make qemu-nox".split())
 
-    points = 0
     errors = []
 
     try:
@@ -92,7 +91,7 @@ def run_test(code, program, rubrics):
         exit(1)
 
     rubrics = yaml.safe_load(rubrics)
-    full = 0
+    full = point1
 
     for rubric in rubrics:
         print(f"[!]Checking [{rubric['name']}]")
@@ -119,6 +118,8 @@ def run_test(code, program, rubrics):
     if errors:
         exit(1)
 
+    return points
 
-run_test(code1, "lab1_part1", rubrics1)
-run_test(code23, "lab1_part23", rubrics23)
+
+point1 = run_test(code1, "lab1_part1", rubrics1, 0)
+point23 = run_test(code23, "lab1_part23", rubrics23, point1)
