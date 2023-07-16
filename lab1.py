@@ -117,6 +117,9 @@ def run_test(code, program, rubrics, points):
     if errors:
         exit(1)
 
+    p.terminate()
+    p.kill()
+
     return points
 
 
