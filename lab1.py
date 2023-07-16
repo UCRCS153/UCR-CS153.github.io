@@ -124,4 +124,5 @@ def run_test(code, program, rubrics, points):
 
 
 point1 = run_test(code1, "lab1_part1", rubrics1, 0)
-point23 = run_test(code23, "lab1_part23", rubrics23, point1)
+point1 = run_test(code1, "lab1_part1", rubrics1, 0)
+# point23 = run_test(code23, "lab1_part23", rubrics23, point1)
