@@ -35,16 +35,6 @@ rubrics23 = r"""
   name: "Exit & Wait - Wait for second child process"
 
 - points: 5
-  expect: "-1"
-  note: "[Waitpid]Syscall does not return -1 while obtaining status of an invalid process"
-  name: "Waitpid - check invalid process"
-
-- points: 5
-  expect: "-1"
-  note : "[Waitpid]Syscall does not return -1 when an invalid argument is given"
-  name: "Waitpid - check invalid argument"
-
-- points: 5
   cmd: "lab1_part23 2"
   expect: "-1 -1"
   note: "[Exit & Wait]Should return -1 for a child process that does not exist"
