@@ -27,4 +27,5 @@ int main(int argc, char *argv[])
     printf(1, "\nlab1 part1: test getppid\n");
     getParent();
     // exit();
+    return 0;
 }
