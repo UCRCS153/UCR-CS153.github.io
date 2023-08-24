@@ -50,6 +50,7 @@ try:
         cnts.append((count, int(cnt1), int(cnt2)))
     
     for count, cnt1, cnt2 in cnts:
+        print("count %d, cnt1 %d, cnt2 %d" % (count, cnt1, cnt2))
         if cnt2 != 2 * count:
             raise Exception("")
     points += 80
