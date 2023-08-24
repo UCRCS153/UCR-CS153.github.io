@@ -52,10 +52,11 @@ try:
     for count, cnt1, cnt2 in cnts:
         print("count %d, cnt1 %d, cnt2 %d" % (count, cnt1, cnt2))
         if cnt2 != 2 * count:
-            raise Exception("")
+            raise Exception("counter error")
     points += 80
 
 except Exception as e:
+    print(e)
     # probably a timeout
     print("[!]Encountered timeout")
     if cnts:
