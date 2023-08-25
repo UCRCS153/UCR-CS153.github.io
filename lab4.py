@@ -49,6 +49,7 @@ try:
         cnt2 = re.findall(r"CNT_(.*)_", line)[0]
         cnts.append((count, int(cnt1), int(cnt2)))
     
+    print(cnts)
     for count, cnt1, cnt2 in cnts:
         print("count %d, cnt1 %d, cnt2 %d" % (count, cnt1, cnt2))
         if cnt2 != 2 * count:
