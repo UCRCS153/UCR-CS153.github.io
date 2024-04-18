@@ -35,9 +35,9 @@ rubrics23 = r"""
 
 - points: 0
   cmd: "lab1_part23 2"
-  expect: "11 15"
-  note: "[Waitpid]Failed to create 5 child processes"
-  name: "Waitpid - create 5 child processes"
+  expect: "12 16"
+  note: "[Waitpid]Failed to create 6 child processes"
+  name: "Waitpid - create 6 child processes"
 
 - points: 5
   expect: "10\n10+14+14\n8\n8+12+12\n9\n9+13+13\n7\n7+11+11\n11\n11+15+15"
@@ -45,7 +45,7 @@ rubrics23 = r"""
   name: "Waitpid - check 5 child processes exit status"
 
 - points: 5
-  expect: "112\n12+-1"
+  expect: "12\n12+-1"
   note: "[Waitpid]Syscall does not return -1 while obtaining status of an process that's not a child of the current process"
   name: "Waitpid - check invalid process"
 
